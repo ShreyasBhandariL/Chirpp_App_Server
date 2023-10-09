@@ -1,4 +1,4 @@
-const BirdModel = require("../Models/bird_data");
+const BirdModel = require("../../Models/bird_data");
 const addBird = async (req, res) => {
   const { name, size, majorColor, minorColor, beakShape, footShape } = req.body;
   try {
