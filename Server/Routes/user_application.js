@@ -9,4 +9,6 @@ routes.get(
   require("../Controllers/UserApplication/search_birds")
 );
 
+routes.post("/signup", require("../Controllers/UserApplication/user_signup"));
+
 module.exports = routes;
