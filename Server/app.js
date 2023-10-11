@@ -6,7 +6,10 @@ const app = express();
 const port = 6000;
 //database connection
 // connectDB();
-//middlewares
+//middlewares""
+app.get("/", (req, res) => {
+  res.status(200).json({ message: "well come to chirrp app" });
+});
 app.use(express.json());
 app.use(cors());
 app.use("/user", require("./Routes/user_application"));
