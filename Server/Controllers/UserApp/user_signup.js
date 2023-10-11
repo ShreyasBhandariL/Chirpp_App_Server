@@ -7,18 +7,23 @@ const userSignUp = async (req, res) => {
     if (isUserExists.length !== 0) {
       return res.status(422).json({ message: "user already exists" });
     }
-    await bcrypt.genSalt(400000, (err, salt) => {
+    await bcrypt.genSalt(10, (err, salt) => {
       if (err) {
         throw err;
       }
-      console.log(salt);
+      bcrypt.hash(password, salt, async (err, password) => {
+        if (err) {
+          throw err;
+        }
+        const newUser = UserModel({
+          fullName,
+          email,
+          password,
+        });
+        await newUser.save();
+      });
     });
-    const newUser = UserModel({
-      fullName,
-      email,
-      password,
-    });
-    await newUser.save();
+
     res.status(200).json({ message: "user signUp successful" });
   } catch (error) {
     console.log(error.message);
