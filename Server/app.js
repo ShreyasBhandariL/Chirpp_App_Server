@@ -5,7 +5,7 @@ const connectDB = require("./db_connect");
 const app = express();
 const port = 6000;
 //database connection
-connectDB();
+// connectDB();
 //middlewares
 app.use(express.json());
 app.use(cors());
