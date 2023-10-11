@@ -3,9 +3,9 @@ const bcrypt = require("bcrypt");
 const userSignUp = async (req, res) => {
   try {
     const { fullName, email, password } = req.body;
-    const isUserExists = await UserModel.find({ email });
-    if (isUserExists.length !== 0) {
-      return res.status(422).json({ message: "user already exists" });
+    const [isUserExists] = await UserModel.find({ email });
+    if (isUserExists) {
+      return res.status(400).json({ message: "user already exists" });
     }
     await bcrypt.genSalt(10, (err, salt) => {
       if (err) {
