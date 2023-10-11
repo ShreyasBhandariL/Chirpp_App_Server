@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
-
+const DataBaseName = "ChirrpApp";
 const connectDB = async () => {
   try {
-    await mongoose.connect("mongodb://localhost:27017/ChirrpClubBirdApp", {
+    await mongoose.connect(`${process.env.MongoDB_URL}/${DataBaseName}`, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
