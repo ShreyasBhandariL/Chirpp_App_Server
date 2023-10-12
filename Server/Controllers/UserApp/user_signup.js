@@ -5,7 +5,9 @@ const userSignUp = async (req, res) => {
     const { fullName, email, password } = req.body;
     const [isUserExists] = await UserModel.find({ email });
     if (isUserExists) {
-      return res.status(400).json({ message: "user already exists" });
+      return res
+        .status(400)
+        .json({ status: false, message: "user already exists" });
     }
     await bcrypt.genSalt(10, (err, salt) => {
       if (err) {
@@ -24,7 +26,7 @@ const userSignUp = async (req, res) => {
       });
     });
 
-    res.status(200).json({ message: "user signup successful" });
+    res.status(200).json({ status: true, message: "user signup successful" });
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ error: error.message });

@@ -5,18 +5,20 @@ const userLogin = async (req, res) => {
     const { email, password } = req.body;
     const [userInfo] = await UserModel.find({ email }, { _id: 0 });
     if (!userInfo) {
-      return res.status(400).json({ message: "user not found" });
+      return res.status(400).json({ status: false, message: "user not found" });
     }
     bcrypt.compare(password, userInfo.password, (err, compareRes) => {
       if (err) {
         throw err;
       }
       if (compareRes) {
-        res
-          .status(200)
-          .json({ name: userInfo.fullName, email: userInfo.email });
+        res.status(200).json({
+          status: true,
+          name: userInfo.fullName,
+          email: userInfo.email,
+        });
       } else {
-        res.status(401).json({ message: "password incorrect" });
+        res.status(401).json({ status: false, message: "password incorrect" });
       }
     });
   } catch (error) {
