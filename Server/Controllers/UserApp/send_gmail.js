@@ -11,51 +11,51 @@ const sendGmail = async (gmailId, otp, validityDuration) => {
 <html>
 <head>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
+    body {
+      font-family: Arial, sans-serif;
+    }
 
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f3f3f3;
-        }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: rgba(164, 190, 123, 1);
+    }
 
-        .header {
-            background-color: #007BFF;
-            color: #fff;
-            padding: 15px;
-        }
+    .header {
+      background-color: rgba(40, 84, 48, 1);
+      color: #fff;
+      padding: 15px;
+    }
 
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-        }
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
 
-        .otp {
-            font-size: 36px;
-            font-weight: bold;
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
+    .otp {
+      font-size: 36px;
+      font-weight: bold;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      color: rgba(40, 84, 48, 1);
+    }
 
-        .info {
-            font-size: 16px;
-            margin-top: 20px;
-        }
+    .info {
+      font-size: 16px;
+      margin-top: 20px;
+    }
 
-        .expire {
-            color: #FF0000;
-            font-weight: bold;
-        }
+    .expire {
+      color: #ff0000;
+      font-weight: bold;
+    }
 
-        .footer {
-            margin-top: 20px;
-            font-size: 14px;
-            color: #555;
-        }
+    .footer {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #555;
+    }
     </style>
 </head>
 <body>

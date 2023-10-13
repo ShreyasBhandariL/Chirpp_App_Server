@@ -6,5 +6,6 @@ routes.post("/signup", require("../Controllers/UserApp/user_signup"));
 routes.post("/login", require("../Controllers/UserApp/user_login"));
 routes.post("/get_otp", require("../Controllers/UserApp/get_otp"));
 routes.post("/verify_otp", require("../Controllers/UserApp/verify_otp"));
+routes.get("/live_search", require("../Controllers/UserApp/search_birds_live"));
 
 module.exports = routes;

@@ -10,11 +10,11 @@
         max-width: 600px;
         margin: 0 auto;
         padding: 20px;
-        background-color: #f3f3f3;
+        background-color: rgba(164, 190, 123, 1);
       }
 
       .header {
-        background-color: #007bff;
+        background-color: rgba(40, 84, 48, 1);
         color: #fff;
         padding: 15px;
       }
@@ -29,6 +29,7 @@
         font-weight: bold;
         margin-top: 20px;
         margin-bottom: 20px;
+        color: rgba(40, 84, 48, 1);
       }
 
       .info {
@@ -59,8 +60,8 @@
         <div class="otp">11229</div>
         <p class="info">
           Please use this OTP within the next
-          <span class="expire">10 minutes</span> to complete your authentication
-          process.
+          <span class="expire"><span>60</span>seconds</span> to complete your
+          authentication process.
         </p>
         <p class="info">
           Chirrp Club is the perfect place for bird enthusiasts to connect,
@@ -76,5 +77,17 @@
         <p>&copy; 2023 Chirrp Club</p>
       </div>
     </div>
+    <script>
+      const expireTimeId = document.querySelector(".expire span");
+      let expireTime = Number(expireTimeId.innerText);
+      const timerId = setInterval(() => {
+        if (expireTime === 0) {
+          clearInterval(timerId);
+          return;
+        }
+        expireTime = expireTime - 1;
+        expireTimeId.innerText = expireTime;
+      }, 1000);
+    </script>
   </body>
 </html>
