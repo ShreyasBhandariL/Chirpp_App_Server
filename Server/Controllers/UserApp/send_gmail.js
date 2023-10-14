@@ -67,7 +67,7 @@ const sendGmail = async (gmailId, otp, validityDuration) => {
             <p>Hello there,</p>
             <p>Your One-Time Password (OTP) for Chirrp Club is:</p>
             <div class="otp">${otp}</div>
-            <p class="info">Please use this OTP within the next <span class="expire">${validityDuration} seconds</span> to complete your authentication process.</p>
+            <p class="info">Please use this OTP within the next <span class="expire">${validityDuration} minutes</span> to complete your authentication process.</p>
             <p class="info">Chirrp Club is the perfect place for bird enthusiasts to connect, share, and explore the world of birds.</p>
             <p class="info">Happy birdwatching!</p>
         </div>

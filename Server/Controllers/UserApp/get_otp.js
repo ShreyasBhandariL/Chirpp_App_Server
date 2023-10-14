@@ -17,7 +17,7 @@ const getOtp = async (req, res) => {
       }
     }
     const otp = generateOtp(5);
-    const gmailStatus = await sendGmail(email, otp, 120);
+    const gmailStatus = await sendGmail(email, otp, 4);
     await OtpModel({
       email,
       otp,
