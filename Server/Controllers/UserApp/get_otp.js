@@ -4,12 +4,17 @@ const generateOtp = require("./generate_otp");
 const sendGmail = require("./send_gmail");
 const getOtp = async (req, res) => {
   try {
-    const { email } = req.body;
-    const [searchEmail] = await UserModel.find({ email }, { _id: 0, email: 1 });
-    if (!searchEmail) {
-      return res
-        .status(400)
-        .json({ status: false, message: "user not exists" });
+    const { newUser, email } = req.query;
+    if (!newUser) {
+      const [searchEmail] = await UserModel.find(
+        { email },
+        { _id: 0, email: 1 }
+      );
+      if (!searchEmail) {
+        return res
+          .status(400)
+          .json({ status: false, message: "user not exists" });
+      }
     }
     const otp = generateOtp(5);
     const gmailStatus = await sendGmail(email, otp, 120);
