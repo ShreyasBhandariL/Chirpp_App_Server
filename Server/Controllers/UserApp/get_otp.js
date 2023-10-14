@@ -4,8 +4,8 @@ const generateOtp = require("./generate_otp");
 const sendGmail = require("./send_gmail");
 const getOtp = async (req, res) => {
   try {
-    const { newUser, email } = req.query;
-    if (!newUser) {
+    const { newUser, email } = req.body;
+    if (!Boolean(newUser)) {
       const [searchEmail] = await UserModel.find(
         { email },
         { _id: 0, email: 1 }
