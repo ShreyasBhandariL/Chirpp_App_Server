@@ -1,8 +1,15 @@
 const UserModel = require("../../Models/user_data");
+const OtpModel = require("../../Models/otp");
 const bcrypt = require("bcrypt");
 const userSignUp = async (req, res) => {
   try {
-    const { fullName, email, password } = req.body;
+    const { otp, fullName, email, password } = req.body;
+    const [isOtpExists] = await OtpModel.find({ otp });
+    if (!isOtpExists) {
+      return res
+        .status(400)
+        .json({ status: false, message: "email verification failed" });
+    }
     const [isUserExists] = await UserModel.find({ email });
     if (isUserExists) {
       return res
@@ -26,7 +33,7 @@ const userSignUp = async (req, res) => {
       });
     });
 
-    res.status(200).json({ status: true, message: "user signup successful" });
+    res.status(201).json({ status: true, message: "user signup successful" });
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ error: error.message });

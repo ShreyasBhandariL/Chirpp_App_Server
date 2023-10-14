@@ -12,7 +12,7 @@ const getOtp = async (req, res) => {
         .json({ status: false, message: "user not exists" });
     }
     const otp = generateOtp(5);
-    const gmailStatus = await sendGmail(email, otp, 60);
+    const gmailStatus = await sendGmail(email, otp, 120);
     await OtpModel({
       email,
       otp,

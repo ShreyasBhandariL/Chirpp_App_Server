@@ -5,7 +5,7 @@ const userLogin = async (req, res) => {
     const { email, password } = req.body;
     const [userInfo] = await UserModel.find({ email }, { _id: 0 });
     if (!userInfo) {
-      return res.status(400).json({ status: false, message: "user not found" });
+      return res.status(400).json({ status: false, message: "no user found" });
     }
     bcrypt.compare(password, userInfo.password, (err, compareRes) => {
       if (err) {
