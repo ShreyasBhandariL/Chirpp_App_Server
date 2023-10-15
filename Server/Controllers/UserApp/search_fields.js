@@ -9,12 +9,22 @@ const searchFields = async (req, res) => {
       beakShape: [],
       footShape: [],
     };
+
     const [searchQuery, unwantedFields] = searchQueryBuilder(req.query);
     const result = await BirdModel.find(searchQuery, unwantedFields);
+    const checkDuplication = (field, element) => {
+      for (let i = 0; i < filteredResult[field].length; i++) {
+        if (filteredResult[field][i].value === element.value) {
+          return true;
+        }
+      }
+      return false;
+    };
     result.forEach((element) => {
-      if (element.size && filteredResult.size.indexOf(element.size) === -1) {
+      if (element.size && !checkDuplication("size", element.size)) {
         filteredResult.size.push(element.size);
       }
+
       if (
         element.majorColor &&
         filteredResult.majorColor.indexOf(element.majorColor) === -1
@@ -29,13 +39,13 @@ const searchFields = async (req, res) => {
       }
       if (
         element.beakShape &&
-        filteredResult.beakShape.indexOf(element.beakShape) === -1
+        !checkDuplication("beakShape", element.beakShape)
       ) {
         filteredResult.beakShape.push(element.beakShape);
       }
       if (
         element.footShape &&
-        filteredResult.footShape.indexOf(element.footShape) === -1
+        !checkDuplication("footShape", element.footShape)
       ) {
         filteredResult.footShape.push(element.footShape);
       }

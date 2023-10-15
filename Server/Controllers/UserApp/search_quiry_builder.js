@@ -2,24 +2,25 @@ const searchQueryBuilder = (query = {}) => {
   const { size, majorColor, minorColor, beakShape, footShape } = query;
   const dbQueries = [];
   const unwantedFields = {};
+
   if (size) {
-    dbQueries.push({ size: { $regex: size, $options: "i" } });
+    dbQueries.push({ "size.value": size });
     unwantedFields.size = 0;
   }
   if (majorColor) {
-    dbQueries.push({ majorColor: { $regex: majorColor, $options: "i" } });
+    dbQueries.push({ majorColor: majorColor });
     unwantedFields.majorColor = 0;
   }
   if (minorColor) {
-    dbQueries.push({ minorColor: { $regex: minorColor, $options: "i" } });
+    dbQueries.push({ minorColor: minorColor });
     unwantedFields.minorColor = 0;
   }
   if (beakShape) {
-    dbQueries.push({ beakShape: { $regex: beakShape, $options: "i" } });
+    dbQueries.push({ "beakShape.value": beakShape });
     unwantedFields.beakShape = 0;
   }
   if (footShape) {
-    dbQueries.push({ footShape: { $regex: footShape, $options: "i" } });
+    dbQueries.push({ "footShape.value": footShape });
     unwantedFields.footShape = 0;
   }
   unwantedFields._id = 0;
