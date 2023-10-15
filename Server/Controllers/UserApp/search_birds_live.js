@@ -15,7 +15,9 @@ const searchBirdsLive = async (req, res) => {
     res.status(200).json({ status: true, birds: dbResults });
   } catch (error) {
     console.log(error.message);
-    res.status(500).json({ status: false, error: error.message });
+    res
+      .status(500)
+      .json({ status: false, message: "oops something went wrong" });
   }
 };
 

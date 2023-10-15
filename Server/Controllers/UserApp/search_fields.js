@@ -54,7 +54,9 @@ const searchFields = async (req, res) => {
     res.status(200).json(filteredResult);
   } catch (error) {
     console.log(error.message);
-    res.status(500).json({ error: error.message });
+    res
+      .status(500)
+      .json({ status: false, message: "oops something went wrong" });
   }
 };
 

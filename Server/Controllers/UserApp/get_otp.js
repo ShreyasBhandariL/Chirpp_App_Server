@@ -5,7 +5,7 @@ const sendGmail = require("./send_gmail");
 const getOtp = async (req, res) => {
   try {
     const { newUser, email } = req.body;
-    if (!Boolean(newUser)) {
+    if (!newUser) {
       const [searchEmail] = await UserModel.find(
         { email },
         { _id: 0, email: 1 }
@@ -17,15 +17,18 @@ const getOtp = async (req, res) => {
       }
     }
     const otp = generateOtp(5);
-    const gmailStatus = await sendGmail(email, otp, 4);
+    const gmailStatus = await sendGmail(email, otp, 3, newUser);
     await OtpModel({
       email,
       otp,
+      expirationTime: new Date(Date.now() + 3 * 60 * 1000),
     }).save();
     res.status(200).json({ status: true, message: gmailStatus });
   } catch (error) {
     console.log(error.message);
-    res.status(500).json({ error: error.message });
+    res
+      .status(500)
+      .json({ status: false, message: "oops something went wrong" });
   }
 };
 

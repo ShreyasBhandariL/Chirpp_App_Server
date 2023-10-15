@@ -1,5 +1,5 @@
 const nodemailer = require("nodemailer");
-const sendGmail = async (gmailId, otp, validityDuration) => {
+const sendGmail = async (gmailId, otp, validityDuration, newUser) => {
   const mailSettings = {
     service: "gmail",
     auth: {
@@ -65,9 +65,15 @@ const sendGmail = async (gmailId, otp, validityDuration) => {
         </div>
         <div class="content">
             <p>Hello there,</p>
-            <p>Your One-Time Password (OTP) for Chirrp Club is:</p>
+            <p>${
+              newUser
+                ? `Please use the following OTP for email verification`
+                : `Your One-Time Password (OTP) for Chirrp Club is:`
+            }</p>
             <div class="otp">${otp}</div>
-            <p class="info">Please use this OTP within the next <span class="expire">${validityDuration} minutes</span> to complete your authentication process.</p>
+            <p class="info">Please use this OTP within the next <span class="expire">${validityDuration} minutes</span> to complete your ${
+    newUser ? `email verification` : `authentication`
+  } process.</p>
             <p class="info">Chirrp Club is the perfect place for bird enthusiasts to connect, share, and explore the world of birds.</p>
             <p class="info">Happy birdwatching!</p>
         </div>
@@ -84,7 +90,11 @@ const sendGmail = async (gmailId, otp, validityDuration) => {
     const gmailResult = await transporter.sendMail({
       from: mailSettings.auth.user,
       to: gmailId,
-      subject: "Chirrp Club App OTP: Your One-Time Password  Is Here",
+      subject: `Chirrp Club App OTP: ${
+        newUser
+          ? `Verify your email by using this OTP`
+          : `Your One-Time Password  Is Here`
+      }`,
       html: otpTemplate,
     });
     if (!gmailResult.rejected.length) {

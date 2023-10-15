@@ -25,7 +25,9 @@ const setPassword = async (req, res) => {
     });
   } catch (error) {
     console.log(error.message);
-    res.status(500).json({ error: error.message });
+    res
+      .status(500)
+      .json({ status: false, message: "oops something went wrong" });
   }
 };
 
