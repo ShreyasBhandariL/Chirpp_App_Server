@@ -9,8 +9,10 @@ const searchFields = async (req, res) => {
       beakShape: [],
       footShape: [],
     };
-
-    const [searchQuery, unwantedFields] = searchQueryBuilder(req.query);
+    const [searchQuery, unwantedFields] = await searchQueryBuilder(
+      req.query,
+      filteredResult
+    );
     const result = await BirdModel.find(searchQuery, unwantedFields);
     const checkDuplication = (field, element) => {
       for (let i = 0; i < filteredResult[field].length; i++) {
@@ -53,7 +55,7 @@ const searchFields = async (req, res) => {
 
     res.status(200).json(filteredResult);
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
     res
       .status(500)
       .json({ status: false, message: "oops something went wrong" });
