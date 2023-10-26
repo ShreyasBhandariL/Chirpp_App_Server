@@ -24,7 +24,7 @@ const searchQueryBuilder = async (query = {}, filteredResult) => {
   }
   if (minorColor) {
     dbQueries.push({ minorColor: minorColor });
-    filteredResult.majorColor.push(minorColor);
+    filteredResult.minorColor.push(minorColor);
     unwantedFields.minorColor = 0;
   }
   if (beakShape) {
@@ -40,7 +40,7 @@ const searchQueryBuilder = async (query = {}, filteredResult) => {
     dbQueries.push({ "footShape.value": footShape });
     const result = await searchFieldImages(
       { "footShape.value": footShape },
-      { beakShape: 1, _id: 0 }
+      { footShape: 1, _id: 0 }
     );
     filteredResult.footShape.push(result.footShape);
     unwantedFields.footShape = 0;
