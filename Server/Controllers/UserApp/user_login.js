@@ -5,7 +5,7 @@ const userLogin = async (req, res) => {
     const { email, password } = req.body;
     const [userInfo] = await UserModel.find({ email }, { _id: 0 });
     if (!userInfo) {
-      return res.status(400).json({ status: false, message: "no user found" });
+      return res.status(404).json({ error: "user not found" });
     }
     bcrypt.compare(password, userInfo.password, (err, compareRes) => {
       if (err) {
@@ -13,19 +13,16 @@ const userLogin = async (req, res) => {
       }
       if (compareRes) {
         res.status(200).json({
-          status: true,
           name: userInfo.fullName,
           email: userInfo.email,
         });
       } else {
-        res.status(401).json({ status: false, message: "password incorrect" });
+        res.status(401).json({ error: "password incorrect" });
       }
     });
   } catch (error) {
     console.log(error.message);
-    res
-      .status(500)
-      .json({ status: false, message: "oops something went wrong" });
+    res.status(500).json({ error: "oops something went wrong" });
   }
 };
 

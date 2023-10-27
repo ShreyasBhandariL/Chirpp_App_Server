@@ -12,12 +12,10 @@ const searchBirdsLive = async (req, res) => {
       },
       { _id: 0 }
     );
-    res.status(200).json({ status: true, birds: dbResults });
+    res.status(200).json({ birds: dbResults });
   } catch (error) {
     console.log(error.message);
-    res
-      .status(500)
-      .json({ status: false, message: "oops something went wrong" });
+    res.status(500).json({ error: "oops something went wrong" });
   }
 };
 

@@ -15,19 +15,15 @@ const setPassword = async (req, res) => {
         if (dbResult.modifiedCount) {
           return res
             .status(202)
-            .json({ status: true, message: "password updated successfully" });
+            .json({ message: "password updated successfully" });
         } else {
-          return res
-            .status(400)
-            .json({ status: false, message: "no user found" });
+          return res.status(404).json({ error: "user not found" });
         }
       });
     });
   } catch (error) {
     console.log(error.message);
-    res
-      .status(500)
-      .json({ status: false, message: "oops something went wrong" });
+    res.status(500).json({ error: "oops something went wrong" });
   }
 };
 

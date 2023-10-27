@@ -11,9 +11,7 @@ const getOtp = async (req, res) => {
         { _id: 0, email: 1 }
       );
       if (!searchEmail) {
-        return res
-          .status(400)
-          .json({ status: false, message: "user not exists" });
+        return res.status(404).json({ error: "user not exists" });
       }
     }
     const otp = generateOtp(5);
@@ -23,12 +21,10 @@ const getOtp = async (req, res) => {
       otp,
       expirationTime: new Date(Date.now() + 3 * 60 * 1000),
     }).save();
-    res.status(200).json({ status: true, message: gmailStatus });
+    res.status(200).json({ message: gmailStatus });
   } catch (error) {
     console.log(error.message);
-    res
-      .status(500)
-      .json({ status: false, message: "oops something went wrong" });
+    res.status(500).json({ error: "oops something went wrong" });
   }
 };
 

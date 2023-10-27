@@ -4,14 +4,12 @@ const verifyOtp = async (req, res) => {
     const { otp } = req.body;
     const [isOtpExists] = await OtpModel.find({ otp }, { email: 1, _id: 0 });
     if (!isOtpExists) {
-      return res.status(400).json({ status: false, message: "invalid otp" });
+      return res.status(401).json({ error: "invalid otp" });
     }
-    res.status(200).json({ status: true, email: isOtpExists.email });
+    res.status(200).json({ email: isOtpExists.email });
   } catch (error) {
     console.log(error.message);
-    res
-      .status(500)
-      .json({ status: false, message: "oops something went wrong" });
+    res.status(500).json({ error: "oops something went wrong" });
   }
 };
 

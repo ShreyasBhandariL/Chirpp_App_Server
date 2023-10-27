@@ -6,15 +6,11 @@ const userSignUp = async (req, res) => {
     const { otp, fullName, email, password } = req.body;
     const [isOtpExists] = await OtpModel.find({ otp });
     if (!isOtpExists) {
-      return res
-        .status(400)
-        .json({ status: false, message: "email verification failed" });
+      return res.status(400).json({ error: "email verification failed" });
     }
     const [isUserExists] = await UserModel.find({ email });
     if (isUserExists) {
-      return res
-        .status(400)
-        .json({ status: false, message: "user already exists" });
+      return res.status(409).json({ error: "user already exists" });
     }
     await bcrypt.genSalt(10, (err, salt) => {
       if (err) {
@@ -33,12 +29,10 @@ const userSignUp = async (req, res) => {
       });
     });
 
-    res.status(201).json({ status: true, message: "user signup successfull" });
+    res.status(201).json({ message: "user signup successfull" });
   } catch (error) {
     console.log(error.message);
-    res
-      .status(500)
-      .json({ status: false, message: "oops something went wrong" });
+    res.status(500).json({ error: "oops something went wrong" });
   }
 };
 

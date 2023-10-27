@@ -14,17 +14,17 @@ const searchQueryBuilder = async (query = {}, filteredResult) => {
       { "size.value": size },
       { size: 1, _id: 0 }
     );
-    filteredResult.size.push(result.size);
+    filteredResult?.size.push(result.size);
     unwantedFields.size = 0;
   }
   if (majorColor) {
     dbQueries.push({ majorColor: majorColor });
-    filteredResult.majorColor.push(majorColor);
+    filteredResult?.majorColor.push(majorColor);
     unwantedFields.majorColor = 0;
   }
   if (minorColor) {
     dbQueries.push({ minorColor: minorColor });
-    filteredResult.minorColor.push(minorColor);
+    filteredResult?.minorColor.push(minorColor);
     unwantedFields.minorColor = 0;
   }
   if (beakShape) {
@@ -33,7 +33,7 @@ const searchQueryBuilder = async (query = {}, filteredResult) => {
       { "beakShape.value": beakShape },
       { beakShape: 1, _id: 0 }
     );
-    filteredResult.beakShape.push(result.beakShape);
+    filteredResult?.beakShape.push(result.beakShape);
     unwantedFields.beakShape = 0;
   }
   if (footShape) {
@@ -42,7 +42,7 @@ const searchQueryBuilder = async (query = {}, filteredResult) => {
       { "footShape.value": footShape },
       { footShape: 1, _id: 0 }
     );
-    filteredResult.footShape.push(result.footShape);
+    filteredResult?.footShape.push(result.footShape);
     unwantedFields.footShape = 0;
   }
   unwantedFields._id = 0;

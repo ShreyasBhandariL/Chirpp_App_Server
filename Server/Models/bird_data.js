@@ -1,7 +1,13 @@
 const mongoose = require("mongoose");
 
 const birdSchema = new mongoose.Schema({
-  name: { type: String, required: true },
+  commonName: { type: String, required: true },
+  scientificName: { type: String, required: true },
+  kannadaName: { type: String, required: true },
+  identification: { type: String, required: true },
+  breedingSeason: { type: String },
+  diet: { type: String },
+  imageSrc: { type: String, required: true },
   size: { type: Object, required: true },
   majorColor: { type: String, required: true },
   minorColor: { type: String, required: true },
