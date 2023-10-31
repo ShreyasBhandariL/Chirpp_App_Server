@@ -1,53 +1,63 @@
 const BirdModel = require("../../Models/bird_data");
-async function searchFieldImages(query, requiredFields) {
-  const [searchResult] = await BirdModel.find(query, requiredFields).limit(1);
-  return searchResult;
+function searchProjector(field) {
+  let projector = {};
+  switch (field) {
+    case "size":
+      projector = { majorColor: 0, minorColor: 0, beakShape: 0, footShape: 0 };
+      break;
+    case "majorColor":
+      projector = { size: 0, minorColor: 0, beakShape: 0, footShape: 0 };
+      break;
+    case "minorColor":
+      projector = { size: 0, majorColor: 0, beakShape: 0, footShape: 0 };
+      break;
+    case "beakShape":
+      projector = { size: 0, majorColor: 0, minorColor: 0, footShape: 0 };
+      break;
+    case "footShape":
+      projector = { size: 0, majorColor: 0, minorColor: 0, beakShape: 0 };
+  }
+  return projector;
 }
-const searchQueryBuilder = async (query = {}, filteredResult) => {
+const searchQueryBuilder = async (query = {}) => {
   const { size, majorColor, minorColor, beakShape, footShape } = query;
   const dbQueries = [];
-  const unwantedFields = {};
-
+  let wantedFields = {};
+  let filteredResult = {};
   if (size) {
     dbQueries.push({ "size.value": size });
-    const result = await searchFieldImages(
-      { "size.value": size },
-      { size: 1, _id: 0 }
-    );
-    filteredResult?.size.push(result.size);
-    unwantedFields.size = 0;
+    wantedFields = searchProjector("majorColor");
+    filteredResult = { majorColor: [] };
   }
   if (majorColor) {
     dbQueries.push({ majorColor: majorColor });
-    filteredResult?.majorColor.push(majorColor);
-    unwantedFields.majorColor = 0;
+    wantedFields = searchProjector("minorColor");
+    filteredResult = { minorColor: [] };
   }
   if (minorColor) {
     dbQueries.push({ minorColor: minorColor });
-    filteredResult?.minorColor.push(minorColor);
-    unwantedFields.minorColor = 0;
+    wantedFields = searchProjector("beakShape");
+    filteredResult = { beakShape: [] };
   }
   if (beakShape) {
     dbQueries.push({ "beakShape.value": beakShape });
-    const result = await searchFieldImages(
-      { "beakShape.value": beakShape },
-      { beakShape: 1, _id: 0 }
-    );
-    filteredResult?.beakShape.push(result.beakShape);
-    unwantedFields.beakShape = 0;
+    wantedFields = searchProjector("footShape");
+    filteredResult = { footShape: [] };
   }
   if (footShape) {
     dbQueries.push({ "footShape.value": footShape });
-    const result = await searchFieldImages(
-      { "footShape.value": footShape },
-      { footShape: 1, _id: 0 }
-    );
-    filteredResult?.footShape.push(result.footShape);
-    unwantedFields.footShape = 0;
   }
-  unwantedFields._id = 0;
-  unwantedFields.name = 0;
-  return [dbQueries.length !== 0 ? { $and: dbQueries } : query, unwantedFields];
+  if (dbQueries.length === 0) {
+    wantedFields = searchProjector("size");
+    filteredResult = { size: [] };
+  }
+  wantedFields._id = 0;
+  wantedFields.name = 0;
+  return [
+    dbQueries.length !== 0 ? { $and: dbQueries } : query,
+    wantedFields,
+    filteredResult,
+  ];
 };
 
 module.exports = searchQueryBuilder;

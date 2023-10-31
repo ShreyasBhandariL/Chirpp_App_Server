@@ -2,18 +2,9 @@ const BirdModel = require("../../Models/bird_data");
 const searchQueryBuilder = require("./search_quiry_builder");
 const searchFields = async (req, res) => {
   try {
-    const filteredResult = {
-      size: [],
-      majorColor: [],
-      minorColor: [],
-      beakShape: [],
-      footShape: [],
-    };
-    const [searchQuery, unwantedFields] = await searchQueryBuilder(
-      req.query,
-      filteredResult
-    );
-    const result = await BirdModel.find(searchQuery, unwantedFields);
+    const [searchQuery, wantedFields, filteredResult] =
+      await searchQueryBuilder(req.query);
+    const result = await BirdModel.find(searchQuery, wantedFields);
     const checkDuplication = (field, element) => {
       for (let i = 0; i < filteredResult[field].length; i++) {
         if (filteredResult[field][i].value === element.value) {
@@ -25,34 +16,28 @@ const searchFields = async (req, res) => {
     result.forEach((element) => {
       if (element.size && !checkDuplication("size", element.size)) {
         filteredResult.size.push(element.size);
-      }
-
-      if (
+      } else if (
         element.majorColor &&
         filteredResult.majorColor.indexOf(element.majorColor) === -1
       ) {
         filteredResult.majorColor.push(element.majorColor);
-      }
-      if (
+      } else if (
         element.minorColor &&
         filteredResult.minorColor.indexOf(element.minorColor) === -1
       ) {
         filteredResult.minorColor.push(element.minorColor);
-      }
-      if (
+      } else if (
         element.beakShape &&
         !checkDuplication("beakShape", element.beakShape)
       ) {
         filteredResult.beakShape.push(element.beakShape);
-      }
-      if (
+      } else if (
         element.footShape &&
         !checkDuplication("footShape", element.footShape)
       ) {
         filteredResult.footShape.push(element.footShape);
       }
     });
-
     res.status(200).json(filteredResult);
   } catch (error) {
     console.log(error);

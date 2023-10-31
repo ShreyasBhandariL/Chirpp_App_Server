@@ -6,7 +6,7 @@ const verifyOtp = async (req, res) => {
     if (!isOtpExists) {
       return res.status(401).json({ error: "invalid otp" });
     }
-    res.status(200).json({ email: isOtpExists.email });
+    res.status(200).json({ message: "otp varified" });
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ error: "oops something went wrong" });

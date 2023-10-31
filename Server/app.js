@@ -3,6 +3,8 @@ const cors = require("cors");
 const connectDB = require("./db_connect");
 require("dotenv").config();
 
+const jwt = require("jsonwebtoken");
+
 const app = express();
 const PORT = process.env.PORT || 6000;
 //database connection
