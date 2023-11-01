@@ -6,15 +6,18 @@ const searchBirdsLive = async (req, res) => {
       {
         $or: [
           {
-            name: { $regex: `^${query}`, $options: "i" },
+            commonName: { $regex: query, $options: "i" },
+          },
+          {
+            scientificName: { $regex: query, $options: "i" },
           },
         ],
       },
-      { _id: 0 }
+      { _id: 0, commonName: 1, scientificName: 1, kannadaName: 1 }
     );
     res.status(200).json({ birds: dbResults });
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
     res.status(500).json({ error: "oops something went wrong" });
   }
 };

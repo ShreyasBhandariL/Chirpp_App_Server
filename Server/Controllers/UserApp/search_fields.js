@@ -1,5 +1,41 @@
 const BirdModel = require("../../Models/bird_data");
 const searchQueryBuilder = require("./search_quiry_builder");
+const birdSizeSort = (filteredResult) => {
+  const birdSizeOrder = [
+    "--sparrow",
+    "-sparrow",
+    "sparrow",
+    "sparrow+",
+    "sparrow++",
+    "--myna",
+    "-myna",
+    "myna",
+    "myna+",
+    "myna++",
+    "--crow",
+    "-crow",
+    "crow",
+    "crow+",
+    "crow++",
+    "--eagle",
+    "-eagle",
+    "eagle",
+    "eagle+",
+    "eagle++",
+  ];
+  let temp = null;
+  let key = 0;
+  for (let i = 0; i < birdSizeOrder.length; i++) {
+    for (let j = 0; j < filteredResult["size"].length; j++) {
+      if (filteredResult["size"][j].value === birdSizeOrder[i]) {
+        temp = filteredResult["size"][key];
+        filteredResult["size"][key] = filteredResult["size"][j];
+        filteredResult["size"][j] = temp;
+        key++;
+      }
+    }
+  }
+};
 const searchFields = async (req, res) => {
   try {
     const [searchQuery, unwantedFields, filteredResult] = searchQueryBuilder(
@@ -14,7 +50,7 @@ const searchFields = async (req, res) => {
       }
       return false;
     };
-    console.log(result);
+
     result.forEach((element) => {
       if (element.size && !checkDuplication("size", element.size)) {
         filteredResult.size.push(element.size);
@@ -40,6 +76,11 @@ const searchFields = async (req, res) => {
         filteredResult.footShape.push(element.footShape);
       }
     });
+
+    if (filteredResult["size"]) {
+      birdSizeSort(filteredResult);
+    }
+
     res.status(200).json(filteredResult);
   } catch (error) {
     console.log(error);

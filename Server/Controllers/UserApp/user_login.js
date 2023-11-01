@@ -19,7 +19,7 @@ const userLogin = async (req, res) => {
             email: userInfo.email,
           },
           "chirrp",
-          { expiresIn: "15m" }
+          { expiresIn: "1h" }
         );
         res.status(200).json({
           token,
