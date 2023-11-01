@@ -1,4 +1,4 @@
-const BirdModel = require("../../Models/bird_data");
+
 function searchProjector(field) {
   let projector = {};
   switch (field) {

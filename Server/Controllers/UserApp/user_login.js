@@ -1,5 +1,6 @@
 const UserModel = require("../../Models/user_data");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const userLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -7,14 +8,21 @@ const userLogin = async (req, res) => {
     if (!userInfo) {
       return res.status(404).json({ error: "user not found" });
     }
-    bcrypt.compare(password, userInfo.password, (err, compareRes) => {
+    bcrypt.compare(password, userInfo.password, async (err, compareRes) => {
       if (err) {
         throw err;
       }
       if (compareRes) {
+        const token = await jwt.sign(
+          {
+            fullName: userInfo.fullName,
+            email: userInfo.email,
+          },
+          "chirrp",
+          { expiresIn: "15m" }
+        );
         res.status(200).json({
-          name: userInfo.fullName,
-          email: userInfo.email,
+          token,
         });
       } else {
         res.status(401).json({ error: "password incorrect" });

@@ -2,6 +2,7 @@ const BirdModel = require("../../Models/bird_data");
 const searchQueryBuilder = require("./search_quiry_builder");
 const searchFields = async (req, res) => {
   try {
+    console.log(req.query);
     const [searchQuery, wantedFields, filteredResult] =
       await searchQueryBuilder(req.query);
     const result = await BirdModel.find(searchQuery, wantedFields);
