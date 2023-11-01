@@ -1,9 +1,28 @@
 const BirdModel = require("../../Models/bird_data");
 const addBird = async (req, res) => {
-  const { name, size, majorColor, minorColor, beakShape, footShape } = req.body;
+  const {
+    commonName,
+    scientificName,
+    kannadaName,
+    identification,
+    breedingSeason,
+    diet,
+    imageSrc,
+    size,
+    majorColor,
+    minorColor,
+    beakShape,
+    footShape,
+  } = req.body;
   try {
     const newBirdModel = new BirdModel({
-      name,
+      commonName,
+      scientificName,
+      kannadaName,
+      identification,
+      breedingSeason,
+      diet,
+      imageSrc,
       size,
       majorColor,
       minorColor,

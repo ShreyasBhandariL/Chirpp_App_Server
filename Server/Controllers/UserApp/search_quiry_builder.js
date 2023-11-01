@@ -1,4 +1,3 @@
-
 function searchProjector(field) {
   let projector = {};
   switch (field) {
@@ -19,43 +18,50 @@ function searchProjector(field) {
   }
   return projector;
 }
-const searchQueryBuilder = async (query = {}) => {
+const searchQueryBuilder = (query = {}) => {
   const { size, majorColor, minorColor, beakShape, footShape } = query;
   const dbQueries = [];
-  let wantedFields = {};
+  let unwantedFields = {};
   let filteredResult = {};
   if (size) {
-    dbQueries.push({ "size.value": size });
-    wantedFields = searchProjector("majorColor");
+    dbQueries.push({ "size.value": decodeURIComponent(size) });
+    unwantedFields = searchProjector("majorColor");
     filteredResult = { majorColor: [] };
   }
   if (majorColor) {
     dbQueries.push({ majorColor: majorColor });
-    wantedFields = searchProjector("minorColor");
+    unwantedFields = searchProjector("minorColor");
     filteredResult = { minorColor: [] };
   }
   if (minorColor) {
     dbQueries.push({ minorColor: minorColor });
-    wantedFields = searchProjector("beakShape");
+    unwantedFields = searchProjector("beakShape");
     filteredResult = { beakShape: [] };
   }
   if (beakShape) {
     dbQueries.push({ "beakShape.value": beakShape });
-    wantedFields = searchProjector("footShape");
+    unwantedFields = searchProjector("footShape");
     filteredResult = { footShape: [] };
   }
   if (footShape) {
     dbQueries.push({ "footShape.value": footShape });
   }
   if (dbQueries.length === 0) {
-    wantedFields = searchProjector("size");
+    unwantedFields = searchProjector("size");
     filteredResult = { size: [] };
   }
-  wantedFields._id = 0;
-  wantedFields.name = 0;
+  unwantedFields._id = 0;
+  unwantedFields.__v = 0;
+  unwantedFields.commonName = 0;
+  unwantedFields.scientificName = 0;
+  unwantedFields.kannadaName = 0;
+  unwantedFields.identification = 0;
+  unwantedFields.breedingSeason = 0;
+  unwantedFields.diet = 0;
+  unwantedFields.imageSrc = 0;
   return [
     dbQueries.length !== 0 ? { $and: dbQueries } : query,
-    wantedFields,
+    unwantedFields,
     filteredResult,
   ];
 };

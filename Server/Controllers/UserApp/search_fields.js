@@ -2,10 +2,10 @@ const BirdModel = require("../../Models/bird_data");
 const searchQueryBuilder = require("./search_quiry_builder");
 const searchFields = async (req, res) => {
   try {
-    console.log(req.query);
-    const [searchQuery, wantedFields, filteredResult] =
-      await searchQueryBuilder(req.query);
-    const result = await BirdModel.find(searchQuery, wantedFields);
+    const [searchQuery, unwantedFields, filteredResult] = searchQueryBuilder(
+      req.query
+    );
+    const result = await BirdModel.find(searchQuery, unwantedFields);
     const checkDuplication = (field, element) => {
       for (let i = 0; i < filteredResult[field].length; i++) {
         if (filteredResult[field][i].value === element.value) {
@@ -14,6 +14,7 @@ const searchFields = async (req, res) => {
       }
       return false;
     };
+    console.log(result);
     result.forEach((element) => {
       if (element.size && !checkDuplication("size", element.size)) {
         filteredResult.size.push(element.size);
