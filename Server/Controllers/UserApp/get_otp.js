@@ -6,10 +6,11 @@ const getOtp = async (req, res) => {
   try {
     const { newUser, email } = req.body;
     const [searchEmail] = await UserModel.find({ email }, { _id: 0, email: 1 });
+
     if (newUser && searchEmail) {
       return res.status(409).json({ error: "user already exsists" });
     }
-    if (!searchEmail) {
+    if (!newUser && !searchEmail) {
       return res.status(404).json({ error: "user not exists" });
     }
     const otp = generateOtp(5);
