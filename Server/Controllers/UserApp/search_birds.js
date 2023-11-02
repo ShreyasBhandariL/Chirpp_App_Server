@@ -9,13 +9,13 @@ const searchBirds = async (req, res) => {
     if (majorColor) {
       birdSearchQuery.push({ majorColor });
     }
-    if (minorColor) {
+    if (minorColor && minorColor !== "skip") {
       birdSearchQuery.push({ minorColor });
     }
-    if (beakShape) {
+    if (beakShape && beakShape !== "skip") {
       birdSearchQuery.push({ "beakShape.value": beakShape });
     }
-    if (footShape) {
+    if (footShape && footShape !== "skip") {
       birdSearchQuery.push({ "footShape.value": footShape });
     }
     const birds = await BirdModel.find(
