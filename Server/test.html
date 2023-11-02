@@ -77,17 +77,27 @@
         <p>&copy; 2023 Chirrp Club</p>
       </div>
     </div>
+    <button>fetch</button>
     <script>
-      const expireTimeId = document.querySelector(".expire span");
-      let expireTime = Number(expireTimeId.innerText);
-      const timerId = setInterval(() => {
-        if (expireTime === 0) {
-          clearInterval(timerId);
-          return;
+      const button = document.querySelector("button");
+      async function fetchData() {
+        try {
+          const result = await fetch("http://localhost:8000/admin/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify({
+              email: "shreyasbhandaricse@gmail.com",
+              password: "123",
+            }),
+          });
+          const data = await result.json();
+          console.log(data);
+        } catch (error) {
+          console.log(error);
         }
-        expireTime = expireTime - 1;
-        expireTimeId.innerText = expireTime;
-      }, 1000);
+      }
+      button.addEventListener("click", fetchData);
     </script>
   </body>
 </html>

@@ -9,7 +9,11 @@ const PORT = process.env.PORT || 6000;
 connectDB();
 //middlewares
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://127.0.0.1:5500",
+  })
+);
 app.use("/user", require("./Routes/user_application"));
 app.use("/admin", require("./Routes/admin_panel"));
 
