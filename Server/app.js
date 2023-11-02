@@ -12,14 +12,11 @@ app.use(express.json());
 app.use(
   cors({
     origin: "http://127.0.0.1:5500",
+    credentials: true,
   })
 );
 app.use("/user", require("./Routes/user_application"));
 app.use("/admin", require("./Routes/admin_panel"));
-
-app.listen(3000, () => {
-  console.log("Server is running on port 3000");
-});
 
 app.listen(PORT, () => {
   console.log(`server running @ ${PORT}`);

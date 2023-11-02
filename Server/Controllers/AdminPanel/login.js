@@ -24,7 +24,11 @@ const login = async (req, res) => {
         });
         res
           .status(200)
-          .cookie("login_token", token, { httpOnly: false })
+          .cookie("login_token", token, {
+            httpOnly: true,
+            sameSite: "None",
+            secure: true,
+          })
           .json({ message: "login successfull" });
       } else {
         res.status(401).json({ error: "wrong password" });
