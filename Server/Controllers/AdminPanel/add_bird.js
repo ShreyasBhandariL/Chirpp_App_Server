@@ -1,20 +1,20 @@
 const BirdModel = require("../../Models/bird_data");
 const addBird = async (req, res) => {
-  const {
-    commonName,
-    scientificName,
-    kannadaName,
-    identification,
-    breedingSeason,
-    diet,
-    imageSrc,
-    size,
-    majorColor,
-    minorColor,
-    beakShape,
-    footShape,
-  } = req.body;
   try {
+    const {
+      commonName,
+      scientificName,
+      kannadaName,
+      identification,
+      breedingSeason,
+      diet,
+      imageSrc,
+      size,
+      majorColor,
+      minorColor,
+      beakShape,
+      footShape,
+    } = req.body;
     const newBirdModel = new BirdModel({
       commonName,
       scientificName,
@@ -30,9 +30,9 @@ const addBird = async (req, res) => {
       footShape,
     });
     await newBirdModel.save();
-    console.log("Data Inserted Successfully");
+    res.status(200).json({ message: "bird data updated successfully" });
   } catch (error) {
-    console.log(error.message);
+    res.status(500).json({ errror: "oops something went wrong" });
   }
 };
 
