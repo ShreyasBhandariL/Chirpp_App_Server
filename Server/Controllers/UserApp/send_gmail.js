@@ -73,7 +73,7 @@ const sendGmail = async (gmailId, otp, validityDuration, newUser) => {
           <div class="otp">${otp}</div>
           <p class="info">
             Please use this OTP within the next
-            <span class="expire"><span>${validityDuration} minutes</span>seconds</span> to complete your
+            <span class="expire">${validityDuration} minutes<span> to complete your
             authentication process.
           </p>
           <p class="info">
