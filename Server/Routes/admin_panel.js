@@ -6,6 +6,10 @@ routes.post("/login", require("../Controllers/AdminPanel/login"));
 routes.get("/get_options", require("../Controllers/AdminPanel/get_birds"));
 routes.get("/get_birds", require("../Controllers/AdminPanel/get_birds"));
 routes.put("/edit_bird/:id", require("../Controllers/AdminPanel/edit_bird"));
+routes.get(
+  "/get_birds_info",
+  require("../Controllers/AdminPanel/get_bird_info")
+);
 // routes.post("/delete_bird", require("../Controllers/AdminPanel/delete_bird"));
 
 module.exports = routes;
