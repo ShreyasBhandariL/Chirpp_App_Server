@@ -29,13 +29,17 @@ const searchQueryBuilder = (query = {}) => {
     filteredResult = { majorColor: [] };
   }
   if (majorColor) {
-    dbQueries.push({ majorColor: `#${majorColor.toLowerCase()}` });
+    dbQueries.push({
+      majorColor: `#${majorColor.toLowerCase().slice(2, majorColor.length)}`,
+    });
     unwantedFields = searchProjector("minorColor");
     filteredResult = { minorColor: [] };
   }
   if (minorColor) {
     if (minorColor !== "skip") {
-      dbQueries.push({ minorColor: `#${minorColor.toLowerCase()}` });
+      dbQueries.push({
+        minorColor: `#${minorColor.toLowerCase().slice(2, majorColor.length)}`,
+      });
     }
     unwantedFields = searchProjector("beakShape");
     filteredResult = { beakShape: [] };

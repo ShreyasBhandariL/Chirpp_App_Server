@@ -7,10 +7,14 @@ const searchBirds = async (req, res) => {
       birdSearchQuery.push({ "size.value": size });
     }
     if (majorColor) {
-      birdSearchQuery.push({ majorColor: `#${majorColor.toLowerCase()}` });
+      birdSearchQuery.push({
+        majorColor: `#${majorColor.toLowerCase().slice(2, majorColor.length)}`,
+      });
     }
     if (minorColor && minorColor !== "skip") {
-      birdSearchQuery.push({ minorColor: `#${minorColor.toLowerCase()}` });
+      birdSearchQuery.push({
+        minorColor: `#${minorColor.toLowerCase().slice(2, majorColor.length)}`,
+      });
     }
     if (beakShape && beakShape !== "skip") {
       birdSearchQuery.push({ "beakShape.value": beakShape });
