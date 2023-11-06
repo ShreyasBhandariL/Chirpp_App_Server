@@ -7,10 +7,10 @@ const searchBirds = async (req, res) => {
       birdSearchQuery.push({ "size.value": size });
     }
     if (majorColor) {
-      birdSearchQuery.push({ majorColor });
+      birdSearchQuery.push({ majorColor: `#${majorColor.toLowerCase()}` });
     }
     if (minorColor && minorColor !== "skip") {
-      birdSearchQuery.push({ minorColor });
+      birdSearchQuery.push({ minorColor: `#${minorColor.toLowerCase()}` });
     }
     if (beakShape && beakShape !== "skip") {
       birdSearchQuery.push({ "beakShape.value": beakShape });

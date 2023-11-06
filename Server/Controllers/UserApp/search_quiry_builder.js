@@ -29,13 +29,13 @@ const searchQueryBuilder = (query = {}) => {
     filteredResult = { majorColor: [] };
   }
   if (majorColor) {
-    dbQueries.push({ majorColor: majorColor });
+    dbQueries.push({ majorColor: `#${majorColor.toLowerCase()}` });
     unwantedFields = searchProjector("minorColor");
     filteredResult = { minorColor: [] };
   }
   if (minorColor) {
     if (minorColor !== "skip") {
-      dbQueries.push({ minorColor: minorColor });
+      dbQueries.push({ minorColor: `#${minorColor.toLowerCase()}` });
     }
     unwantedFields = searchProjector("beakShape");
     filteredResult = { beakShape: [] };
