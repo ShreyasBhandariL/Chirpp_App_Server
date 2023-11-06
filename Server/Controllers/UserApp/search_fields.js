@@ -59,13 +59,13 @@ const searchFields = async (req, res) => {
         filteredResult.majorColor.indexOf(element.majorColor) === -1
       ) {
         const appColorCode = element.majorColor.replace("#", "");
-        filteredResult.majorColor.push(appColorCode.toUpperCase());
+        filteredResult.majorColor.push(`ff${appColorCode}`.toUpperCase());
       } else if (
         element.minorColor &&
         filteredResult.minorColor.indexOf(element.minorColor) === -1
       ) {
         const appColorCode = element.minorColor.replace("#", "");
-        filteredResult.minorColor.push(appColorCode.toUpperCase());
+        filteredResult.minorColor.push(`ff${appColorCode}`.toUpperCase());
       } else if (
         element.beakShape &&
         !checkDuplication("beakShape", element.beakShape)
