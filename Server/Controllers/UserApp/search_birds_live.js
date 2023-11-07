@@ -2,6 +2,7 @@ const BirdModel = require("../../Models/bird_data");
 const searchBirdsLive = async (req, res) => {
   try {
     const { query } = req.query;
+    const results = [];
     const dbResults = await BirdModel.find(
       {
         $or: [
@@ -13,9 +14,12 @@ const searchBirdsLive = async (req, res) => {
           },
         ],
       },
-      { _id: 0, commonName: 1, scientificName: 1, kannadaName: 1 }
+      { _id: 0, commonName: 1 }
     );
-    res.status(200).json({ birds: dbResults });
+    dbResults.forEach((value) => {
+      results.push(value.commonName);
+    });
+    res.status(200).json({ results });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "oops something went wrong" });

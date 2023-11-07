@@ -1,7 +1,7 @@
 const BirdModel = require("../../Models/bird_data");
 const addBird = async (req, res) => {
   try {
-    const {
+    let {
       commonName,
       scientificName,
       kannadaName,
@@ -15,6 +15,7 @@ const addBird = async (req, res) => {
       beakShape,
       footShape,
     } = req.body;
+    size = { value: size, img: `${process.env.Image_URL}/size/${size}` };
     const newBirdModel = new BirdModel({
       commonName,
       scientificName,
