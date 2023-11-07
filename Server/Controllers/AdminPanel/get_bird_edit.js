@@ -4,7 +4,7 @@ const getBirdEdit = async (req, res) => {
   try {
     const { id } = req.query;
     const _id = new mongoose.Types.ObjectId(id);
-    const [birdEditInfo] = await BirdModel.find({ _id }, { imageSrc: 0 });
+    const [birdEditInfo] = await BirdModel.find({ _id });
     if (!birdEditInfo) {
       return res.status(404).json({ error: "bird not found" });
     }
