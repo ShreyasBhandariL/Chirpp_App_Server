@@ -3,7 +3,7 @@ const BirdModel = require("../../Models/bird_data");
 const editBird = async (req, res) => {
   try {
     const { _id } = new mongoose.Types.ObjectId(req.params.id);
-    const {
+    let {
       commonName,
       scientificName,
       kannadaName,
@@ -17,6 +17,7 @@ const editBird = async (req, res) => {
       beakShape,
       footShape,
     } = req.body;
+    size = { value: size, img: `${process.env.Image_URL}/size/${size}` };
     const updatedResult = await BirdModel.updateOne(
       { _id },
       {
