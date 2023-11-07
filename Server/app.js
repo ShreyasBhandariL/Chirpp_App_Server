@@ -17,6 +17,7 @@ app.use(
 );
 app.use("/user", require("./Routes/user_application"));
 app.use("/admin", require("./Routes/admin_panel"));
+app.use("/media", express.static("./Media"));
 
 app.listen(PORT, () => {
   console.log(`server running @ ${PORT}`);
