@@ -17,7 +17,7 @@ const editBird = async (req, res) => {
       beakShape,
       footShape,
     } = req.body;
-    size = { value: size, img: `${process.env.Image_URL}/size/${size}` };
+    size = { value: size, img: `${process.env.Image_URL}/size/${size}.png` };
     const updatedResult = await BirdModel.updateOne(
       { _id },
       {
@@ -28,7 +28,7 @@ const editBird = async (req, res) => {
         breedingSeason,
         diet,
         imageSrc,
-        size,
+        size: size,
         majorColor,
         minorColor,
         beakShape,

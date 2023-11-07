@@ -24,7 +24,7 @@ const addBird = async (req, res) => {
       breedingSeason,
       diet,
       imageSrc,
-      size,
+      size: size,
       majorColor,
       minorColor,
       beakShape,
