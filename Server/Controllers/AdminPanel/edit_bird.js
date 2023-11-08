@@ -47,6 +47,7 @@ const editBird = async (req, res) => {
       res.status(400).json({ error: "failed to updated the bird data" });
     }
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: "oops something went wrong" });
   }
 };
