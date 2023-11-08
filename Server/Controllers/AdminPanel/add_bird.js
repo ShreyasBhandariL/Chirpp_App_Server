@@ -15,7 +15,10 @@ const addBird = async (req, res) => {
       beakShape,
       footShape,
     } = req.body;
-    size = { value: size, img: `${process.env.Image_URL}/size/${size}.png` };
+    size = {
+      value: size,
+      img: `${process.env.Image_URL}/size/${size.replace(/[+-]$/, "")}.png`,
+    };
     const newBirdModel = new BirdModel({
       commonName,
       scientificName,

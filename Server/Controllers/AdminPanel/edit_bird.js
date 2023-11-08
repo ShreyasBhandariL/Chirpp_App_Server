@@ -21,18 +21,20 @@ const editBird = async (req, res) => {
     const updatedResult = await BirdModel.updateOne(
       { _id },
       {
-        commonName,
-        scientificName,
-        kannadaName,
-        identification,
-        breedingSeason,
-        diet,
-        imageSrc,
-        size: size,
-        majorColor,
-        minorColor,
-        beakShape,
-        footShape,
+        $set: {
+          commonName,
+          scientificName,
+          kannadaName,
+          identification,
+          breedingSeason,
+          diet,
+          imageSrc,
+          size: size,
+          majorColor,
+          minorColor,
+          beakShape,
+          footShape,
+        },
       }
     );
     if (updatedResult.acknowledged) {
