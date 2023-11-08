@@ -14,6 +14,7 @@ routes.get(
   "/get_birds_edit_info",
   require("../Controllers/AdminPanel/get_bird_edit")
 );
+routes.post("/delete_bird", require("../Controllers/AdminPanel/delete_bird"));
 // routes.post("/delete_bird", require("../Controllers/AdminPanel/delete_bird"));
 
 module.exports = routes;
