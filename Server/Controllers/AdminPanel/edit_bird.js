@@ -17,11 +17,13 @@ const editBird = async (req, res) => {
       beakShape,
       footShape,
     } = req.body;
-    const sizeImage = size.replace(/[+-]/g, "");
-    size = {
-      value: size,
-      img: `${process.env.Image_URL}/size/${sizeImage}.png`,
-    };
+    if (typeof size === "string") {
+      const sizeImage = size.replace(/[+-]/g, "");
+      size = {
+        value: size,
+        img: `${process.env.Image_URL}/size/${sizeImage}.png`,
+      };
+    }
     const updatedResult = await BirdModel.updateOne(
       { _id },
       {
