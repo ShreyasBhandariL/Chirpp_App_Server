@@ -15,6 +15,9 @@ routes.get(
   require("../Controllers/AdminPanel/get_bird_edit")
 );
 routes.post("/delete_bird", require("../Controllers/AdminPanel/delete_bird"));
+routes.post("/get_otp", require("../Controllers/AdminPanel/get_otp"));
+routes.post("/verify_otp", require("../Controllers/AdminPanel/verify_otp"));
+routes.post("/set_password", require("../Controllers/AdminPanel/set_password"));
 // routes.post("/delete_bird", require("../Controllers/AdminPanel/delete_bird"));
 
 module.exports = routes;

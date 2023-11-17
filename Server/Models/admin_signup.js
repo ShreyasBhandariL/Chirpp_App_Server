@@ -13,6 +13,11 @@ const adminSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  root: {
+    type: Boolean,
+    default: false,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("admins", adminSchema);

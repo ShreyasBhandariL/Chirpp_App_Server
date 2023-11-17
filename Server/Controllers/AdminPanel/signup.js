@@ -2,7 +2,7 @@ const AdminModel = require("../../Models/admin_signup");
 const bcrypt = require("bcrypt");
 const adminSignup = async (req, res) => {
   try {
-    const { fullName, email, password } = req.body;
+    const { fullName, email, password, root } = req.body;
     const [isAdminExists] = await AdminModel.find(
       { email },
       { _id: 0, password }
@@ -18,7 +18,7 @@ const adminSignup = async (req, res) => {
         if (error) {
           res.status(500).json({ error: "oops something went wrong" });
         }
-        await AdminModel({ fullName, email, password }).save();
+        await AdminModel({ fullName, email, password, root }).save();
       });
     });
 

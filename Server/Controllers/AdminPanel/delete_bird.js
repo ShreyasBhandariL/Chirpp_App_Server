@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 const deleteBird = async (req, res) => {
   try {
     let { id } = req.body;
-     id = new mongoose.Types.ObjectId(id);
-    const deleteResult = await BirdModel.deleteOne({ _id: id});
+    id = new mongoose.Types.ObjectId(id);
+    const deleteResult = await BirdModel.deleteOne({ _id: id });
     console.log(deleteResult);
     res.status(200).json({ message: "bird deleted successfully" });
   } catch (error) {

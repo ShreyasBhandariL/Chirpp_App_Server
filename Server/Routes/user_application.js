@@ -12,5 +12,6 @@ routes.post("/get_otp", require("../Controllers/UserApp/get_otp"));
 routes.post("/verify_otp", require("../Controllers/UserApp/verify_otp"));
 routes.put("/set_password", require("../Controllers/UserApp/set_password"));
 routes.get("/live_search", require("../Controllers/UserApp/search_birds_live"));
+routes.get("/get_birds", require("../Controllers/UserApp/get_birds"));
 
 module.exports = routes;
