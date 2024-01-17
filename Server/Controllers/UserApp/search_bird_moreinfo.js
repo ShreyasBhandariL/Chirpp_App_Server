@@ -19,7 +19,6 @@ const birdMoreInfo = async (req, res) => {
     }
     res.status(200).json({ birdInfo });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ error: "oops something went wrong" });
   }
 };

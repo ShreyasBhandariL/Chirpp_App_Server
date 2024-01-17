@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const birdSchema = new mongoose.Schema({
   adminName: { type: String, required: true },
+  email: { type: String, required: true },
   date: { type: String, required: true },
   time: { type: String, required: true },
   commonName: { type: String, required: true },
@@ -16,6 +17,12 @@ const birdSchema = new mongoose.Schema({
   minorColor: { type: String, required: true },
   beakShape: { type: Object, required: true },
   footShape: { type: Object, required: true },
+  birdKey: { type: String, required: false },
+  isEdited: { type: Boolean, required: true },
+  birdId: { type: String, required: false },
+  pastImgFormat: { type: String, required: false },
+  isImgEdited: { type: Boolean, required: false, default: false },
+  imgFormat: { type: String, required: false },
 });
 
 module.exports = mongoose.model("notifications", birdSchema);

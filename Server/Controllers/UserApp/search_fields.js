@@ -85,7 +85,6 @@ const searchFields = async (req, res) => {
 
     res.status(200).json(filteredResult);
   } catch (error) {
-    console.log(error);
     res.status(500).json({ error: "oops something went wrong" });
   }
 };

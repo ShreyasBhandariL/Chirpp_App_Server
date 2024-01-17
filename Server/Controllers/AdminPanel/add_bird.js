@@ -12,13 +12,20 @@ const addBird = async (req, res) => {
       size,
       majorColor,
       minorColor,
-      beakShape,
-      footShape,
+      birdKey,
     } = req.body;
     const sizeImage = size.replace(/[+-]/g, "");
     size = {
       value: size,
       img: `${process.env.Image_URL}/size/${sizeImage}.png`,
+    };
+    beakShape = {
+      value: req.body["beakShape.value"],
+      img: req.body["beakShape.img"],
+    };
+    footShape = {
+      value: req.body["footShape.value"],
+      img: req.body["footShape.img"],
     };
     const newBirdModel = new BirdModel({
       commonName,
@@ -33,6 +40,7 @@ const addBird = async (req, res) => {
       minorColor,
       beakShape,
       footShape,
+      birdKey,
     });
     await newBirdModel.save();
     res.status(200).json({ message: "bird data updated successfully" });

@@ -17,13 +17,27 @@ const editBird = async (req, res) => {
       beakShape,
       footShape,
     } = req.body;
+
     if (typeof size === "string") {
       const sizeImage = size.replace(/[+-]/g, "");
       size = {
         value: size,
         img: `${process.env.Image_URL}/size/${sizeImage}.png`,
       };
+    } else {
+      size = {
+        value: req.body["size.value"],
+        img: req.body["size.img"],
+      };
     }
+    beakShape = {
+      value: req.body["beakShape.value"],
+      img: req.body["beakShape.img"],
+    };
+    footShape = {
+      value: req.body["footShape.value"],
+      img: req.body["footShape.img"],
+    };
     const updatedResult = await BirdModel.updateOne(
       { _id },
       {
@@ -49,7 +63,6 @@ const editBird = async (req, res) => {
       res.status(400).json({ error: "failed to updated the bird data" });
     }
   } catch (error) {
-    console.log(error);
     res.status(500).json({ error: "oops something went wrong" });
   }
 };

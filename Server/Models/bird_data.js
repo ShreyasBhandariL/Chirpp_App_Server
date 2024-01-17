@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const birdSchema = new mongoose.Schema({
+  birdKey: { type: String, required: true },
   commonName: { type: String, required: true },
   scientificName: { type: String, required: true },
   kannadaName: { type: String, required: true },

@@ -8,7 +8,6 @@ const verifyOtp = async (req, res) => {
     }
     res.status(200).json({ message: "otp varified" });
   } catch (error) {
-    console.log(error.message);
     res.status(500).json({ error: "oops something went wrong" });
   }
 };

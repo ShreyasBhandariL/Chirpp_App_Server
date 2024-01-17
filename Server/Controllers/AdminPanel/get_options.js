@@ -89,14 +89,13 @@ const getOptions = async (req, res) => {
           img: `${process.env.Image_URL}/foots/webbed_swimming.png`,
         },
         {
-          value: "climbing",
+          value: "running",
           img: `${process.env.Image_URL}/foots/climbing.png`,
         },
       ],
     };
     res.status(200).json({ options });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ error: "oops something went wrong" });
   }
 };

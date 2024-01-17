@@ -24,7 +24,6 @@ const adminSignup = async (req, res) => {
 
     res.status(201).json({ message: "admin registration successfull" });
   } catch (error) {
-    console.log(error.message);
     res.status(500).json({ error: "oops something went wrong" });
   }
 };
