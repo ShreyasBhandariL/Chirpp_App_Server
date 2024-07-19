@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const DataBaseName = "ChirrpApp";
+const DataBaseName = "chirpp";
 const connectDB = async () => {
   try {
     await mongoose.connect(`${process.env.MongoDB_URL}/${DataBaseName}`, {
